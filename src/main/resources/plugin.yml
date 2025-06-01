@@ -1,0 +1,6 @@
+name: HydraQueue
+version: '1.0'
+main: vadlox.dev.hydraQueue.HydraQueue
+api-version: '1.21'
+description: The Ultimate Clans Plugin.
+website: vadlox.hydraquest.net
