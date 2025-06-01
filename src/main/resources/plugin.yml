@@ -1,6 +1,15 @@
 name: HydraQueue
-version: '1.0'
+version: 'BETA 0.5.1'
 main: vadlox.dev.hydraQueue.HydraQueue
 api-version: '1.21'
-description: The Ultimate Clans Plugin.
+description: A Queue Plugin Similar To East's Queue Plugin.
 website: vadlox.hydraquest.net
+
+commands:
+  queue:
+    description: Queue up to be teleported with another player.
+    usage: /queue
+    aliases: [q]
+  q:
+    description: Queue up to be teleported with another player.
+    usage: /q
