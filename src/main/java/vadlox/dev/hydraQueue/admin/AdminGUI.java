@@ -11,10 +11,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
 
-public class adminsettings implements CommandExecutor {
+public class AdminGUI implements CommandExecutor {
     private final HydraQueue plugin;
 
-    public adminsettings(HydraQueue plugin) {
+    public AdminGUI(HydraQueue plugin) {
         this.plugin = plugin;
     }
 
