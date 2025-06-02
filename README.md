@@ -10,6 +10,7 @@ HydraQueue is a simple Minecraft plugin that allows players to queue up and be t
 - All messages are prefixed for clarity.
 - Admin GUI for editing config in-game.
 - Full PlaceholderAPI support in all messages.
+- **Automatic update notification:** The plugin checks the [GitHub repository](https://github.com/Vadlox/HydraQueue) for updates on enable/reload and notifies admins in-game if a new version is available. The update notification message is configurable.
 
 ## Commands
 
@@ -64,6 +65,7 @@ messages:
   left: "You have left the queue."
   teleported: "You have been teleported with: %players%!"
   no_permission: "You do not have permission to use this command."
+  update_notice: "A new version of HydraQueue is available on GitHub!"
 ```
 
 - **rtp_world:** Set this to the name of the world where you want players to be randomly teleported. If the world does not exist, the plugin will use the world of the first player in the queue.
@@ -72,6 +74,7 @@ messages:
   ```yaml
   joined: "Welcome %player_name% to the queue! There are now %hydraqueue_queue_size% players waiting."
   ```
+- **Admin GUI and update notification messages** are fully configurable in `config.yml` under the `messages:` section.
 
 Edit `config.yml` in your server's `plugins/HydraQueue` folder to change these messages.  
 If you add new PlaceholderAPI expansions, use `/papi reload` or restart your server to make them available in messages.
@@ -82,7 +85,13 @@ Users with `hydraqueue.admin.settings`, `hydraqueue.admin.*`, or operator status
 ```
 /hydraqueue admingui
 ```
-This opens a GUI to edit config settings (prefix, messages, RTP world, etc.) in-game. Changes are saved automatically.
+This opens a GUI to edit config settings (prefix, messages, RTP world, etc.) in-game. Changes are saved automatically.  
+**All messages shown in the admin GUI are configurable in `config.yml`.**
+
+## Update Notification
+
+When the plugin is enabled or reloaded, it checks the [GitHub repository](https://github.com/Vadlox/HydraQueue) for updates.  
+If a new version is detected, all online admins (with `hydraqueue.admin.settings`, `hydraqueue.admin.*`, or operator status) will receive a configurable update notification message.
 
 ---
 

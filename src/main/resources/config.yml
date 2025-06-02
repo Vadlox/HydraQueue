@@ -10,3 +10,4 @@ messages:
   left: "You have left the queue."
   teleported: "You have been teleported with: %players%!"
   no_permission: "You do not have permission to use this command."
+  update_notice: "A new version of HydraQueue is available on GitHub!"

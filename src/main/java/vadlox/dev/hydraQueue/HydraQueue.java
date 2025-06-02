@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 import vadlox.dev.hydraQueue.admin.AdminGuiCommand;
 import vadlox.dev.hydraQueue.admin.SettingsMenuListener;
+import vadlox.dev.hydraQueue.Listeners.UpdateListener;
 
 public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
@@ -59,6 +60,9 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         // Register the settings menu listener
         getServer().getPluginManager().registerEvents(new SettingsMenuListener(this), this);
 
+        // Register the update listener
+        getServer().getPluginManager().registerEvents(new UpdateListener(this), this);
+
         printBanner(true);
     }
 
@@ -98,12 +102,17 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
     }
 
     public void loadMessages() {
-        prefix = getConfig().getString("prefix", "§c§lQueue§8 » §r");
+        prefix = getConfig().getString("prefix", "§c§lQueue§8 » ��r");
         onlyPlayersMsg = getConfig().getString("messages.only_players", "Only players can use this command.");
         joinedMsg = getConfig().getString("messages.joined", "You have joined the queue. Waiting for more players...");
         leftMsg = getConfig().getString("messages.left", "You have left the queue.");
         teleportedMsg = getConfig().getString("messages.teleported", "You have been teleported with: %players%!");
         rtpWorldName = getConfig().getString("rtp_world", "world");
+
+        // After reloading config, trigger update check again if desired:
+        getServer().getScheduler().runTaskLater(this, () -> {
+            UpdateListener.checkForGitHubUpdates(this);
+        }, 20L);
     }
 
     private void sendMessage(Player player, String message) {
