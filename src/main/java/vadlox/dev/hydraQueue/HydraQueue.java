@@ -14,8 +14,11 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 import vadlox.dev.hydraQueue.admin.AdminGuiCommand;
+import vadlox.dev.hydraQueue.admin.SettingsMenuListener;
 
 public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
@@ -52,9 +55,47 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         // Register /hydraqueue command and tab completer
         getCommand("hydraqueue").setExecutor(new AdminGuiCommand(this));
         getCommand("hydraqueue").setTabCompleter(new AdminGuiCommand(this));
+        
+        // Register the settings menu listener
+        getServer().getPluginManager().registerEvents(new SettingsMenuListener(this), this);
+
+        printBanner(true);
     }
 
-    private void loadMessages() {
+    @Override
+    public void onDisable() {
+        printBanner(false);
+        // Plugin shutdown logic
+    }
+
+    private void printBanner(boolean enabled) {
+        String version = getDescription().getVersion();
+        String serverVersion = getServer().getVersion();
+        String javaVersion = System.getProperty("java.version");
+        String os = System.getProperty("os.name") + " " + System.getProperty("os.version");
+        String buildDate = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss").format(LocalDateTime.now());
+
+        String status = enabled ? "ENABLED" : "DISABLED";
+        String color = enabled ? "\u001B[32m" : "\u001B[31m"; // Green or Red
+        String reset = "\u001B[0m";
+
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage(color + "  _    _    ____                        ");
+        Bukkit.getConsoleSender().sendMessage(color + " | |  | |  / __ \\                       ");
+        Bukkit.getConsoleSender().sendMessage(color + " | |__| | | |  | |_   _  ___ _   _  ___ ");
+        Bukkit.getConsoleSender().sendMessage(color + " |  __  | | |  | | | | |/ _ \\ | | |/ _ \\");
+        Bukkit.getConsoleSender().sendMessage(color + " | |  | | | |__| | |_| |  __/ |_| |  __/");
+        Bukkit.getConsoleSender().sendMessage(color + " |_|  |_|  \\___\\_\\\\__,_|\\___|\\__,_|\\___|");
+        Bukkit.getConsoleSender().sendMessage(color + "                                        ");
+        Bukkit.getConsoleSender().sendMessage(color + "HydraQueue " + version + "   " + status);
+        Bukkit.getConsoleSender().sendMessage(color + serverVersion);
+        Bukkit.getConsoleSender().sendMessage(color + "Build Date: " + buildDate);
+        Bukkit.getConsoleSender().sendMessage(color + "Java Version: " + javaVersion);
+        Bukkit.getConsoleSender().sendMessage(color + "OS: " + os + reset);
+        Bukkit.getConsoleSender().sendMessage("");
+    }
+
+    public void loadMessages() {
         prefix = getConfig().getString("prefix", "§c§lQueue§8 » §r");
         onlyPlayersMsg = getConfig().getString("messages.only_players", "Only players can use this command.");
         joinedMsg = getConfig().getString("messages.joined", "You have joined the queue. Waiting for more players...");
@@ -77,11 +118,6 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
             msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
         }
         sender.sendMessage(msg);
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
     }
 
     @Override

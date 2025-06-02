@@ -1,0 +1,12 @@
+# HydraQuee - A simple queue system for Minecraft servers
+# Created by Vadlox
+# https://github.com/vadlox
+
+prefix: "§c§lQueue§8 » §r"
+rtp_world: "world" # The world players will be randomly teleported in
+messages:
+  only_players: "Only players can use this command."
+  joined: "You have joined the queue. Waiting for more players..."
+  left: "You have left the queue."
+  teleported: "You have been teleported with: %players%!"
+  no_permission: "You do not have permission to use this command."
