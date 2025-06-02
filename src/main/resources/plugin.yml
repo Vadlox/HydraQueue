@@ -4,6 +4,8 @@ main: vadlox.dev.hydraQueue.HydraQueue
 api-version: '1.21'
 description: A Queue Plugin Similar To East's Queue Plugin.
 website: vadlox.hydraquest.net
+authors:
+  - Vadlox
 
 commands:
   queue:
