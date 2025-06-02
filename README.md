@@ -29,6 +29,20 @@ HydraQueue is a simple Minecraft plugin that allows players to queue up and be t
 3. **Message Prefix:**  
    All plugin messages are prefixed with `§c§lQueue§8 »` for easy identification.
 
+## PlaceholderAPI Integration
+
+HydraQueue supports [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) for custom placeholders and allows you to use PlaceholderAPI placeholders in all configurable messages.
+
+### Available Placeholders
+
+| Placeholder                  | Description                       |
+|------------------------------|-----------------------------------|
+| `%hydraqueue_queue_size%`    | Number of players in the queue    |
+
+To use these placeholders, ensure PlaceholderAPI is installed and reload your server or use `/papi reload`.
+
+You can also use any other PlaceholderAPI placeholders (such as `%player_name%`) in your `config.yml` messages.
+
 ## Example
 
 - Player1 runs `/queue` and waits.
@@ -48,7 +62,14 @@ messages:
   teleported: "You have been teleported with: %players%!"
 ```
 
-Edit `config.yml` in your server's `plugins/HydraQueue` folder to change these messages.
+**All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) placeholders.**  
+For example:  
+```yaml
+joined: "Welcome %player_name% to the queue! There are now %hydraqueue_queue_size% players waiting."
+```
+
+Edit `config.yml` in your server's `plugins/HydraQueue` folder to change these messages.  
+If you add new PlaceholderAPI expansions, use `/papi reload` or restart your server to make them available in messages.
 
 ---
 

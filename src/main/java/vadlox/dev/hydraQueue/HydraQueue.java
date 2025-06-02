@@ -9,6 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.clip.placeholderapi.PlaceholderAPI;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -24,11 +26,22 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
     private String leftMsg;
     private String teleportedMsg;
 
+    private boolean papiEnabled;
+
+    public int getQueueSize() {
+        return queue.size();
+    }
+
     @Override
     public void onEnable() {
         // Save default config if not present
         saveDefaultConfig();
         loadMessages();
+
+        papiEnabled = getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
+        if (papiEnabled) {
+            new PlaceholderExpansionHook(this).register();
+        }
 
         this.getCommand("queue").setExecutor(this);
         this.getCommand("q").setExecutor(this);
@@ -42,6 +55,22 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         teleportedMsg = getConfig().getString("messages.teleported", "You have been teleported with: %players%!");
     }
 
+    private void sendMessage(Player player, String message) {
+        String msg = prefix + message;
+        if (papiEnabled) {
+            msg = PlaceholderAPI.setPlaceholders(player, msg);
+        }
+        player.sendMessage(msg);
+    }
+
+    private void sendMessage(CommandSender sender, String message) {
+        String msg = prefix + message;
+        if (sender instanceof Player && papiEnabled) {
+            msg = PlaceholderAPI.setPlaceholders((Player) sender, msg);
+        }
+        sender.sendMessage(msg);
+    }
+
     @Override
     public void onDisable() {
         // Plugin shutdown logic
@@ -50,17 +79,17 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(prefix + onlyPlayersMsg);
+            sendMessage(sender, onlyPlayersMsg);
             return true;
         }
         Player player = (Player) sender;
         if (queue.contains(player)) {
             queue.remove(player);
-            player.sendMessage(prefix + leftMsg);
+            sendMessage(player, leftMsg);
             return true;
         }
         queue.add(player);
-        player.sendMessage(prefix + joinedMsg);
+        sendMessage(player, joinedMsg);
 
         // If more than one player is in the queue, teleport all together
         if (queue.size() > 1) {
@@ -74,7 +103,8 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
             for (Player p : queue) {
                 p.teleport(randomLoc);
-                p.sendMessage(prefix + teleportedMsg.replace("%players%", allNames));
+                String msg = teleportedMsg.replace("%players%", allNames);
+                sendMessage(p, msg);
             }
             queue.clear();
         }
