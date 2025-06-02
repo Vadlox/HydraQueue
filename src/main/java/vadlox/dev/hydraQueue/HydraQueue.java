@@ -17,13 +17,29 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
     private final Queue<Player> queue = new LinkedList<>();
     private final Random random = new Random();
-    private final String PREFIX = "§c§lQueue§8 » §r";
+
+    private String prefix;
+    private String onlyPlayersMsg;
+    private String joinedMsg;
+    private String leftMsg;
+    private String teleportedMsg;
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        // Save default config if not present
+        saveDefaultConfig();
+        loadMessages();
+
         this.getCommand("queue").setExecutor(this);
         this.getCommand("q").setExecutor(this);
+    }
+
+    private void loadMessages() {
+        prefix = getConfig().getString("prefix", "§c§lQueue§8 » §r");
+        onlyPlayersMsg = getConfig().getString("messages.only_players", "Only players can use this command.");
+        joinedMsg = getConfig().getString("messages.joined", "You have joined the queue. Waiting for more players...");
+        leftMsg = getConfig().getString("messages.left", "You have left the queue.");
+        teleportedMsg = getConfig().getString("messages.teleported", "You have been teleported with: %players%!");
     }
 
     @Override
@@ -34,17 +50,17 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(PREFIX + "Only players can use this command.");
+            sender.sendMessage(prefix + onlyPlayersMsg);
             return true;
         }
         Player player = (Player) sender;
         if (queue.contains(player)) {
             queue.remove(player);
-            player.sendMessage(PREFIX + "You have left the queue.");
+            player.sendMessage(prefix + leftMsg);
             return true;
         }
         queue.add(player);
-        player.sendMessage(PREFIX + "You have joined the queue. Waiting for more players...");
+        player.sendMessage(prefix + joinedMsg);
 
         // If more than one player is in the queue, teleport all together
         if (queue.size() > 1) {
@@ -58,7 +74,7 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
             for (Player p : queue) {
                 p.teleport(randomLoc);
-                p.sendMessage(PREFIX + "You have been teleported with: " + allNames + "!");
+                p.sendMessage(prefix + teleportedMsg.replace("%players%", allNames));
             }
             queue.clear();
         }

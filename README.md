@@ -37,7 +37,18 @@ HydraQueue is a simple Minecraft plugin that allows players to queue up and be t
 
 ## Configuration
 
-No configuration is required. Just drop the plugin into your server's `plugins` folder and reload/restart the server.
+You can customize the prefix and all plugin messages in `config.yml`:
+
+```yaml
+prefix: "§c§lQueue§8 » §r"
+messages:
+  only_players: "Only players can use this command."
+  joined: "You have joined the queue. Waiting for more players..."
+  left: "You have left the queue."
+  teleported: "You have been teleported with: %players%!"
+```
+
+Edit `config.yml` in your server's `plugins/HydraQueue` folder to change these messages.
 
 ---
 
