@@ -91,6 +91,8 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         Bukkit.getConsoleSender().sendMessage(color + serverVersion);
         Bukkit.getConsoleSender().sendMessage(color + "Build Date: " + buildDate);
         Bukkit.getConsoleSender().sendMessage(color + "Java Version: " + javaVersion);
+        Bukkit.getConsoleSender().sendMessage(color + "Developer: Vadlox");
+        Bukkit.getConsoleSender().sendMessage(color + "GitHub: https://github.com/Vadlox");
         Bukkit.getConsoleSender().sendMessage(color + "OS: " + os + reset);
         Bukkit.getConsoleSender().sendMessage("");
     }
