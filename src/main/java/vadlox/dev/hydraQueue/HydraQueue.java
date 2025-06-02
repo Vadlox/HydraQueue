@@ -25,6 +25,7 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
     private String joinedMsg;
     private String leftMsg;
     private String teleportedMsg;
+    private String rtpWorldName;
 
     private boolean papiEnabled;
 
@@ -53,6 +54,7 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         joinedMsg = getConfig().getString("messages.joined", "You have joined the queue. Waiting for more players...");
         leftMsg = getConfig().getString("messages.left", "You have left the queue.");
         teleportedMsg = getConfig().getString("messages.teleported", "You have been teleported with: %players%!");
+        rtpWorldName = getConfig().getString("rtp_world", "world");
     }
 
     private void sendMessage(Player player, String message) {
@@ -94,7 +96,11 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         // If more than one player is in the queue, teleport all together
         if (queue.size() > 1) {
             Player first = queue.peek();
-            Location randomLoc = getRandomLocation(first.getWorld());
+            World rtpWorld = Bukkit.getWorld(rtpWorldName);
+            if (rtpWorld == null) {
+                rtpWorld = first.getWorld();
+            }
+            Location randomLoc = getRandomLocation(rtpWorld);
             StringBuilder names = new StringBuilder();
             for (Player p : queue) {
                 names.append(p.getName()).append(", ");

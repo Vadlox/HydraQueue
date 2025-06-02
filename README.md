@@ -51,16 +51,19 @@ You can also use any other PlaceholderAPI placeholders (such as `%player_name%`)
 
 ## Configuration
 
-You can customize the prefix and all plugin messages in `config.yml`:
+You can customize the prefix, the world for random teleportation, and all plugin messages in `config.yml`:
 
 ```yaml
 prefix: "§c§lQueue§8 » §r"
+rtp_world: "world" # The world players will be randomly teleported in
 messages:
   only_players: "Only players can use this command."
   joined: "You have joined the queue. Waiting for more players..."
   left: "You have left the queue."
   teleported: "You have been teleported with: %players%!"
 ```
+
+- **rtp_world:** Set this to the name of the world where you want players to be randomly teleported. If the world does not exist, the plugin will use the world of the first player in the queue.
 
 **All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) placeholders.**  
 For example:  
