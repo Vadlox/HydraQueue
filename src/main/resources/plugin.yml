@@ -1,5 +1,5 @@
 name: HydraQueue
-version: 'BETA 0.5.2'
+version: '0.5.5'
 main: vadlox.dev.hydraQueue.HydraQueue
 api-version: '1.21'
 description: A Queue Plugin Similar To East's Queue Plugin.
