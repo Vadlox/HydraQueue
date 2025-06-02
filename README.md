@@ -8,13 +8,15 @@ HydraQueue is a simple Minecraft plugin that allows players to queue up and be t
 - When two or more players are in the queue, all are instantly teleported to the same random location in the world.
 - Players can leave the queue by running the command again.
 - All messages are prefixed for clarity.
+- Admin GUI for editing config in-game.
+- Full PlaceholderAPI support in all messages.
 
 ## Commands
 
-| Command                | Description                                       |
-|------------------------|---------------------------------------------------|
-| `/queue` / `/q`        | Join or leave the teleport queue.                 |
-| `/hydraqueue admingui` | Open the admin settings GUI (requires permission). |
+| Command                    | Description                                       |
+|----------------------------|---------------------------------------------------|
+| `/queue` / `/q`            | Join or leave the teleport queue.                 |
+| `/hydraqueue admingui`     | Open the admin settings GUI (requires permission).|
 
 ## How It Works
 
@@ -61,22 +63,22 @@ messages:
   joined: "You have joined the queue. Waiting for more players..."
   left: "You have left the queue."
   teleported: "You have been teleported with: %players%!"
+  no_permission: "You do not have permission to use this command."
 ```
 
 - **rtp_world:** Set this to the name of the world where you want players to be randomly teleported. If the world does not exist, the plugin will use the world of the first player in the queue.
-
-**All messages support [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) placeholders.**  
-For example:  
-```yaml
-joined: "Welcome %player_name% to the queue! There are now %hydraqueue_queue_size% players waiting."
-```
+- **All messages** support [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) placeholders.  
+  For example:  
+  ```yaml
+  joined: "Welcome %player_name% to the queue! There are now %hydraqueue_queue_size% players waiting."
+  ```
 
 Edit `config.yml` in your server's `plugins/HydraQueue` folder to change these messages.  
 If you add new PlaceholderAPI expansions, use `/papi reload` or restart your server to make them available in messages.
 
 ## Admin Settings GUI
 
-Users with "hydraqueue.admin.settings", "hydraqueue.admin.*", or op permissions can run:
+Users with `hydraqueue.admin.settings`, `hydraqueue.admin.*`, or operator status can run:
 ```
 /hydraqueue admingui
 ```
@@ -85,3 +87,4 @@ This opens a GUI to edit config settings (prefix, messages, RTP world, etc.) in-
 ---
 
 **Website:** [vadlox.hydraquest.net](https://vadlox.hydraquest.net)
+
