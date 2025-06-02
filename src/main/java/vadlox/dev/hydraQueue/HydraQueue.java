@@ -60,8 +60,8 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         // Register the settings menu listener
         getServer().getPluginManager().registerEvents(new SettingsMenuListener(this), this);
 
-        // Register the update listener
-        getServer().getPluginManager().registerEvents(new UpdateListener(this), this);
+        // Register the update listener (no-arg constructor)
+        getServer().getPluginManager().registerEvents(new UpdateListener(), this);
 
         printBanner(true);
     }
