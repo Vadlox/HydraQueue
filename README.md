@@ -11,10 +11,10 @@ HydraQueue is a simple Minecraft plugin that allows players to queue up and be t
 
 ## Commands
 
-| Command    | Description                                   |
-|------------|-----------------------------------------------|
-| `/queue`   | Join or leave the teleport queue.             |
-| `/q`       | Alias for `/queue`.                           |
+| Command                | Description                                       |
+|------------------------|---------------------------------------------------|
+| `/queue` / `/q`        | Join or leave the teleport queue.                 |
+| `/hydraqueue admingui` | Open the admin settings GUI (requires permission). |
 
 ## How It Works
 
@@ -73,6 +73,14 @@ joined: "Welcome %player_name% to the queue! There are now %hydraqueue_queue_siz
 
 Edit `config.yml` in your server's `plugins/HydraQueue` folder to change these messages.  
 If you add new PlaceholderAPI expansions, use `/papi reload` or restart your server to make them available in messages.
+
+## Admin Settings GUI
+
+Users with "hydraqueue.admin.settings", "hydraqueue.admin.*", or op permissions can run:
+```
+/hydraqueue admingui
+```
+This opens a GUI to edit config settings (prefix, messages, RTP world, etc.) in-game. Changes are saved automatically.
 
 ---
 

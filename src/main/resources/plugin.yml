@@ -13,3 +13,7 @@ commands:
   q:
     description: Queue up to be teleported with another player.
     usage: /q
+  hydraqueue:
+    description: HydraQueue main command.
+    usage: /hydraqueue <subcommand>
+    permission-message: You do not have permission to use this command.

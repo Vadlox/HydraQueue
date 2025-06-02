@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+import vadlox.dev.hydraQueue.admin.AdminGuiCommand;
+
 public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
     private final Queue<Player> queue = new LinkedList<>();
@@ -46,6 +48,10 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
         this.getCommand("queue").setExecutor(this);
         this.getCommand("q").setExecutor(this);
+
+        // Register /hydraqueue command and tab completer
+        getCommand("hydraqueue").setExecutor(new AdminGuiCommand(this));
+        getCommand("hydraqueue").setTabCompleter(new AdminGuiCommand(this));
     }
 
     private void loadMessages() {
