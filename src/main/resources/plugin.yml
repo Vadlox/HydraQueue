@@ -19,3 +19,7 @@ commands:
     description: HydraQueue main command.
     usage: /hydraqueue <subcommand>
     permission-message: You do not have permission to use this command.
+  hydraqueue_reload:
+    description: Reload HydraQueue configuration.
+    usage: /hydraqueue reload
+    permission-message: You do not have permission to use this command.

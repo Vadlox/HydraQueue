@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import vadlox.dev.hydraQueue.admin.AdminGuiCommand;
 import vadlox.dev.hydraQueue.admin.SettingsMenuListener;
 import vadlox.dev.hydraQueue.Listeners.UpdateListener;
+import vadlox.dev.hydraQueue.admin.HydraQueueReloadCommand;
 
 public final class HydraQueue extends JavaPlugin implements CommandExecutor {
 
@@ -56,7 +57,10 @@ public final class HydraQueue extends JavaPlugin implements CommandExecutor {
         // Register /hydraqueue command and tab completer
         getCommand("hydraqueue").setExecutor(new AdminGuiCommand(this));
         getCommand("hydraqueue").setTabCompleter(new AdminGuiCommand(this));
-        
+
+        // Register /hydraqueue reload command
+        getCommand("hydraqueue_reload").setExecutor(new HydraQueueReloadCommand(this));
+
         // Register the settings menu listener
         getServer().getPluginManager().registerEvents(new SettingsMenuListener(this), this);
 
